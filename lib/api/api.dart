@@ -23,7 +23,6 @@ class HttpRequest {
 
   InterceptorsWrapper _wrapper(){
     return InterceptorsWrapper(onRequest: (RequestOptions options) {
-      print(options);
       options.headers['Authorization'] = 'Bearer ' +'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IjEzMTQxNDYiLCJleHAiOjE1Njk4MzM2MTQsImVtYWlsIjoiYWRtaW5AaGxjaGFuZy5jbiIsIm9yaWdfaWF0IjoxNTY5NzQ3MjEzfQ.azF_RN2XhPjQ8mvFiu99j8F5-1qj7wBC1g61S37npm8';
       return options; //continue
     }, onResponse: (Response response) {
@@ -37,11 +36,26 @@ class HttpRequest {
     });
   }
 
-  Future<Response> request (options) {
-    print(options['data']);
+  Future<Response> request (
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    CancelToken cancelToken,
+    Options options,
+    ProgressCallback onSendProgress,
+    ProgressCallback onReceiveProgress,
+      }) {
     Dio instance = new Dio(getInsideConfig());
     instance.interceptors.add(_wrapper());
-    return instance.request(options['path'],queryParameters: options['data'], options: options['option']);
+    return instance.request(
+        path,
+        options: options,
+        queryParameters: queryParameters,
+        data: data,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress
+    );
   }
 
 }
