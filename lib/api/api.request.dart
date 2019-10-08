@@ -1,7 +1,7 @@
 
 import 'api.dart';
 
-const URL = "https://dev.bjywkd.com";
+const URL = "http://test.baixingliangfan.cn/baixing";
 
 HttpRequest ajax = new HttpRequest(baseUrl: URL);
 

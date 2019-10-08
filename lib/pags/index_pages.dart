@@ -37,7 +37,7 @@ class _IndexPageState extends State<IndexPage>{
     ),
   ];
 
-  final List pages = [
+  final List<Widget> pages = [
     HomePage(),
     HuyanPage(),
     SearchPage(),
@@ -46,12 +46,10 @@ class _IndexPageState extends State<IndexPage>{
 
   int currentIndex = 0;
 
-  var currentPage;
 
   @override
   void initState() {
     currentIndex = 0;
-    currentPage = pages[currentIndex];
     super.initState();
   }
 
@@ -67,11 +65,13 @@ class _IndexPageState extends State<IndexPage>{
          onTap: (index){
            setState(() {
              currentIndex = index;
-             currentPage = pages[currentIndex];
            });
          },
       ),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentIndex,
+        children: pages,
+      )
     );
   }
 }
